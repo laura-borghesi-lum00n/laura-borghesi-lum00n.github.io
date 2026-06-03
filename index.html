@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laura Borghesi — Developer & Physicist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0a0c10;
+        --surface: #111318;
+        --surface2: #181c23;
+        --border: rgba(255, 255, 255, 0.07);
+        --border2: rgba(255, 255, 255, 0.13);
+        --text: #e8eaf0;
+        --muted: #7a8097;
+        --accent: #4f8ef7;
+        --accent2: #a78bfa;
+        --accent3: #34d399;
+        --gold: #f59e0b;
+        --serif: "DM Serif Display", Georgia, serif;
+        --sans: "Outfit", system-ui, sans-serif;
+        --mono: "DM Mono", monospace;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--sans);
+        font-weight: 300;
+        line-height: 1.7;
+        font-size: 16px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2.5rem;
+        background: rgba(10, 12, 16, 0.85);
+        backdrop-filter: blur(12px);
+        border-bottom: 0.5px solid var(--border);
+      }
+      .nav-logo {
+        font-family: var(--mono);
+        font-size: 0.85rem;
+        color: var(--accent);
+        letter-spacing: 0.05em;
+      }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
+        transition: color 0.2s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      /* ── HERO ── */
+      #hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 0 2.5rem 5rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(
+          ellipse 80% 60% at 50% 100%,
+          transparent 40%,
+          black 100%
+        );
+      }
+
+      .hero-glow {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(79, 142, 247, 0.12) 0%,
+          transparent 70%
+        );
+        top: -100px;
+        right: -100px;
+        pointer-events: none;
+      }
+      .hero-glow2 {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(167, 139, 250, 0.08) 0%,
+          transparent 70%
+        );
+        bottom: 100px;
+        left: 10%;
+        pointer-events: none;
+      }
+
+      .hero-label {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.2s forwards;
+      }
+
+      h1 {
+        font-family: var(--serif);
+        font-size: clamp(3.5rem, 8vw, 7rem);
+        line-height: 1.05;
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.4s forwards;
+      }
+      h1 em {
+        font-style: italic;
+        color: var(--accent);
+      }
+
+      .hero-sub {
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+        color: var(--muted);
+        max-width: 540px;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.6s forwards;
+      }
+
+      .hero-contact {
+        margin-top: 2.5rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.8s forwards;
+      }
+      .contact-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 1rem;
+        border: 0.5px solid var(--border2);
+        border-radius: 999px;
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        color: var(--muted);
+        text-decoration: none;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .contact-pill:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+      .contact-pill svg {
+        width: 13px;
+        height: 13px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 1.5;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 5rem 2.5rem;
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-tag {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent);
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .section-tag::after {
+        content: "";
+        display: block;
+        height: 0.5px;
+        width: 40px;
+        background: var(--accent);
+        opacity: 0.4;
+      }
+
+      h2 {
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 400;
+        line-height: 1.1;
+        margin-bottom: 3rem;
+      }
+
+      /* ── EXPERIENCE ── */
+      .exp-card {
+        border: 0.5px solid var(--border);
+        border-radius: 16px;
+        padding: 2rem 2.5rem;
+        background: var(--surface);
+        margin-bottom: 1.5rem;
+      }
+      .exp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+      .exp-company {
+        font-size: 0.75rem;
+        font-family: var(--mono);
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+      .exp-role {
+        font-family: var(--serif);
+        font-size: 1.4rem;
+        color: var(--text);
+        font-weight: 400;
+      }
+      .exp-date {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+        white-space: nowrap;
+        background: var(--surface2);
+        border: 0.5px solid var(--border);
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+      }
+      .exp-desc {
+        color: var(--muted);
+        font-size: 0.93rem;
+        margin-bottom: 1.25rem;
+        line-height: 1.75;
+      }
+      .exp-items {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .exp-items li {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .exp-items li::before {
+        content: "→";
+        color: var(--accent3);
+        flex-shrink: 0;
+        margin-top: 0.05em;
+        font-family: var(--mono);
+      }
+      .exp-items li strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* ── SKILLS ── */
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1rem;
+      }
+      .skill-block {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 14px;
+        padding: 1.5rem;
+      }
+      .skill-block-title {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--accent2);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+      .tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+      }
+      .tag {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        padding: 0.25rem 0.65rem;
+        border-radius: 999px;
+        border: 0.5px solid var(--border2);
+        color: var(--muted);
+      }
+      .tag.hi {
+        color: var(--text);
+        border-color: rgba(79, 142, 247, 0.35);
+        background: rgba(79, 142, 247, 0.06);
+      }
+      .tag.med {
+        color: var(--muted);
+      }
+      .tag.lo {
+        color: var(--muted);
+        opacity: 0.6;
+      }
+
+      /* ── DOMAIN ── */
+      .domain-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+      }
+      .domain-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 14px;
+        padding: 1.5rem 1.75rem;
+      }
+      .domain-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        margin-bottom: 0.85rem;
+      }
+      .domain-card h3 {
+        font-family: var(--sans);
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 0.6rem;
+      }
+      .domain-card p {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      /* ── EDUCATION ── */
+      .edu-item {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.75rem 0;
+        border-bottom: 0.5px solid var(--border);
+      }
+      .edu-year {
+        font-family: var(--mono);
+        font-size: 0.75rem;
+        color: var(--muted);
+        min-width: 80px;
+        padding-top: 0.2rem;
+      }
+      .edu-content h3 {
+        font-family: var(--serif);
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 0.2rem;
+      }
+      .edu-content .edu-uni {
+        font-size: 0.82rem;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+        font-family: var(--mono);
+      }
+      .edu-content p {
+        font-size: 0.85rem;
+        color: var(--muted);
+      }
+
+      /* ── LANGUAGES ── */
+      .lang-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 1rem;
+      }
+      .lang-card {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+      }
+      .lang-name {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.35rem;
+      }
+      .lang-level {
+        font-family: var(--serif);
+        font-size: 1.3rem;
+        color: var(--text);
+      }
+      .lang-note {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 0.2rem;
+      }
+      .lang-bar {
+        height: 2px;
+        background: var(--border2);
+        border-radius: 2px;
+        margin-top: 0.75rem;
+        overflow: hidden;
+      }
+      .lang-bar-fill {
+        height: 100%;
+        border-radius: 2px;
+      }
+
+      /* ── CONFERENCES ── */
+      .conf-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0.75rem;
+      }
+      .conf-item {
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+      }
+      .conf-name {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .conf-detail {
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      /* ── ACHIEVEMENTS ── */
+      .ach-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .ach-item {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        padding: 0.9rem 1.25rem;
+        background: var(--surface);
+        border: 0.5px solid var(--border);
+        border-radius: 10px;
+      }
+      .ach-star {
+        color: var(--gold);
+        flex-shrink: 0;
+      }
+      .ach-item span {
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+      .ach-item span strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      /* ── HOBBIES ── */
+      .hobby-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+      .hobby-tag {
+        padding: 0.6rem 1.2rem;
+        border: 0.5px solid var(--border2);
+        border-radius: 999px;
+        font-size: 0.88rem;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        border-top: 0.5px solid var(--border);
+        padding: 2rem 2.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 640px) {
+        nav {
+          padding: 1rem 1.25rem;
+        }
+        .nav-links {
+          gap: 1.2rem;
+        }
+        #hero {
+          padding: 0 1.25rem 4rem;
+        }
+        section {
+          padding: 3.5rem 1.25rem;
+        }
+        .exp-card {
+          padding: 1.25rem;
+        }
+        footer {
+          padding: 1.5rem 1.25rem;
+        }
+        .edu-item {
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+      }
+
+      /* scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.6s,
+          transform 0.6s;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <span class="nav-logo">lb.dev</span>
+      <ul class="nav-links">
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#more">More</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero" style="max-width: 100%; padding-top: 0">
+      <div class="hero-grid"></div>
+      <div class="hero-glow"></div>
+      <div class="hero-glow2"></div>
+      <div class="hero-label">Physicist · Developer · Maker</div>
+      <h1>Laura<br /><em>Borghesi</em></h1>
+      <p class="hero-sub">
+        Junior Software Developer specialising in medical imaging, DICOM
+        ecosystems, and data-driven interfaces. MSc Physics — 110L/110.
+      </p>
+      <div class="hero-contact">
+        <a href="mailto:laura.borghesi@gmail.com" class="contact-pill">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M2 7l10 7 10-7" />
+          </svg>
+          laura.borghesi@gmail.com
+        </a>
+        <a href="pec:laura.borghesi@pec.cloud" class="contact-pill">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M2 7l10 7 10-7" />
+          </svg>
+          laura.borghesi@pec.cloud
+        </a>
+        <a href="tel:+393409991368" class="contact-pill">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"
+            />
+          </svg>
+          +39 340 999 13 68
+        </a>
+        <a
+          href="https://linkedin.com/in/laura-borghesi"
+          target="_blank"
+          class="contact-pill"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+            />
+            <rect x="2" y="9" width="4" height="12" />
+            <circle cx="4" cy="4" r="2" />
+          </svg>
+          linkedin.com/in/laura-borghesi
+        </a>
+        <span class="contact-pill">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+            />
+          </svg>
+          Terno d'Isola, BG — Italy
+        </span>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-tag reveal">Experience</div>
+      <h2 class="reveal">What I build</h2>
+
+      <div class="exp-card reveal">
+        <div class="exp-header">
+          <div>
+            <div class="exp-company">D/Vision Lab</div>
+            <div class="exp-role">Junior Software Developer Apprentice</div>
+          </div>
+          <span class="exp-date">Oct 2023 – present</span>
+        </div>
+        <p class="exp-desc">
+          Development and maintenance of desktop, web, and cloud-based medical
+          imaging applications, including advanced image visualizers for
+          external consultancy projects (GMM, EBIT).
+        </p>
+        <ul class="exp-items">
+          <li>
+            <strong>DICOM Viewers</strong> — high-performance 2D, 3D and 4D
+            clinical tools in TypeScript; annotation, segmentation, WW/WL,
+            synchronized viewers, cine playback.
+          </li>
+          <li>
+            <strong>DICOM Standard</strong> — deep expertise across all SOP
+            classes (CR, CT, MR, US, OCT, DSA, PET, MG), GSPS, SR, multiframe,
+            nested sequences. RIS, PACS and MWL integration.
+          </li>
+          <li>
+            <strong>Image Optimisation</strong> — genetic-algorithm pipelines
+            (PyGAD) for anatomical/weight-based presets: automatic denoising,
+            sharpening, contrast and crop.
+          </li>
+          <li>
+            <strong>Digital Twin Platform</strong> — log analysis, technical
+            manual parsing, preliminary data analysis and full frontend for a
+            fleet-monitoring platform (detectors, generators, tables).
+          </li>
+          <li>
+            <strong>IoT Dashboard</strong> — live and historical sensor data,
+            light/dark mode, multi-language settings, customisable views (Bids
+            SI4.0 · SMACT · MastranetAI).
+          </li>
+          <li>
+            <strong>Open Source</strong> — contributor to Larvitar, a
+            TypeScript/JavaScript DICOM processing library.
+          </li>
+          <li>
+            <strong>3D Car Configurator</strong> — Three.js + GSAP interactive
+            demo presented at SPS Italy, Parma 2024.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-tag reveal">Technical Skills</div>
+      <h2 class="reveal">Tools &amp; technologies</h2>
+
+      <div class="skills-grid">
+        <div class="skill-block reveal">
+          <div class="skill-block-title">Languages</div>
+          <div class="tag-cloud">
+            <span class="tag hi">TypeScript</span>
+            <span class="tag hi">JavaScript</span>
+            <span class="tag hi">Python</span>
+            <span class="tag hi">HTML</span>
+            <span class="tag med">MATLAB</span>
+            <span class="tag med">C</span>
+            <span class="tag med">C++</span>
+            <span class="tag lo">Rust</span>
+            <span class="tag lo">Elm</span>
+            <span class="tag lo">Nix</span>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="skill-block-title">Frontend</div>
+          <div class="tag-cloud">
+            <span class="tag hi">Vue.js</span>
+            <span class="tag hi">Vuetify</span>
+            <span class="tag hi">Tailwind CSS</span>
+            <span class="tag med">Bootstrap</span>
+            <span class="tag hi">Vite</span>
+            <span class="tag med">Webpack</span>
+            <span class="tag hi">Electron</span>
+            <span class="tag hi">Three.js</span>
+            <span class="tag med">GSAP</span>
+            <span class="tag med">Blender</span>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="skill-block-title">Medical Imaging</div>
+          <div class="tag-cloud">
+            <span class="tag hi">Cornerstone 3D</span>
+            <span class="tag hi">CornerstoneTools</span>
+            <span class="tag hi">pyDicom</span>
+            <span class="tag hi">PyGAD</span>
+            <span class="tag hi">DICOM Standard</span>
+            <span class="tag med">PACS / RIS / MWL</span>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="skill-block-title">Testing &amp; DevOps</div>
+          <div class="tag-cloud">
+            <span class="tag hi">Cypress</span>
+            <span class="tag hi">Vitest</span>
+            <span class="tag hi">Git</span>
+            <span class="tag med">Docker</span>
+            <span class="tag med">PostgreSQL</span>
+            <span class="tag med">Postman</span>
+            <span class="tag med">Penpot</span>
+            <span class="tag med">Miro</span>
+          </div>
+        </div>
+
+        <div class="skill-block reveal">
+          <div class="skill-block-title">Quantum Computing</div>
+          <div class="tag-cloud">
+            <span class="tag hi">Cirq</span>
+            <span class="tag hi">Qiskit</span>
+            <span class="tag med">EPR Spectroscopy</span>
+            <span class="tag med">Quantum Wells</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOMAIN KNOWLEDGE -->
+    <section id="domain">
+      <div class="section-tag reveal">Domain Knowledge</div>
+      <h2 class="reveal">Areas of expertise</h2>
+
+      <div class="domain-grid">
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(79, 142, 247, 0.1)">
+            🫁
+          </div>
+          <h3>Medical Imaging &amp; DICOM</h3>
+          <p>
+            All SOP classes (CR, CT, MR, US, OCT, DSA, PET, MG), GSPS,
+            Structured Reports, multiframe, sequence nesting, metadata editing.
+            RIS/PACS/MWL integration. Phase-contrast X-ray micro/nano CT.
+          </p>
+        </div>
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(52, 211, 153, 0.1)">
+            ⚗️
+          </div>
+          <h3>Image Processing &amp; Optimisation</h3>
+          <p>
+            Reconstruction, phase retrieval, artifact correction. Filtering,
+            segmentation, 3D rendering, anatomical interpretation.
+            Genetic-algorithm pipelines for automated presets.
+          </p>
+        </div>
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(245, 158, 11, 0.1)">
+            📊
+          </div>
+          <h3>Statistics &amp; Data Analysis</h3>
+          <p>
+            Monte Carlo simulations, data unfolding, parameter estimation,
+            multivariate analysis, econophysics. Log analysis from medical
+            device fleets.
+          </p>
+        </div>
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(167, 139, 250, 0.1)">
+            🧠
+          </div>
+          <h3>Machine Learning</h3>
+          <p>
+            Classification, PCA, neural networks, deep learning, random forests
+            — primarily in MATLAB and Python.
+          </p>
+        </div>
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(251, 113, 133, 0.1)">
+            ⚛️
+          </div>
+          <h3>Quantum &amp; Particle Physics</h3>
+          <p>
+            Quantum computing (Cirq, Qiskit), EPR spectroscopy, quantum wells
+            and decoherence theory, PET imaging, ADC/MCA electronics.
+          </p>
+        </div>
+        <div class="domain-card reveal">
+          <div class="domain-icon" style="background: rgba(16, 185, 129, 0.1)">
+            🛡️
+          </div>
+          <h3>Radioprotection</h3>
+          <p>
+            Sample preparation to reduce motion artifacts, microbeam radiation
+            therapy, radioprotection standards for synchrotron facilities.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-tag reveal">Education</div>
+      <h2 class="reveal">Academic background</h2>
+
+      <div class="reveal">
+        <div class="edu-item">
+          <div class="edu-year">2021 – 2023</div>
+          <div class="edu-content">
+            <h3>MSc Physics — 110L/110</h3>
+            <div class="edu-uni">Università degli Studi di Milano-Bicocca</div>
+            <p>
+              Thesis (Applied Physics):
+              <em
+                >X-ray phase contrast imaging on healthy rat brains treated with
+                microbeam radiation therapy</em
+              >
+              — European Synchrotron Radiation Facility, Grenoble.
+            </p>
+          </div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-year">2018 – 2021</div>
+          <div class="edu-content">
+            <h3>BSc Physics — 110L/110</h3>
+            <div class="edu-uni">Università degli Studi di Milano-Bicocca</div>
+            <p>
+              Thesis (Theoretical Physics):
+              <em>Theory of quantum decoherence</em>.
+            </p>
+          </div>
+        </div>
+        <div class="edu-item" style="border-bottom: none">
+          <div class="edu-year">Extra</div>
+          <div class="edu-content">
+            <h3>Additional Courses</h3>
+            <div class="edu-uni">Various providers</div>
+            <p>
+              Storytelling · Lean Industry · Digital Marketing · Usability ·
+              User-Machine Interaction · Cybersecurity
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LANGUAGES -->
+    <section id="more">
+      <div class="section-tag reveal">Languages</div>
+      <h2 class="reveal">Speaking &amp; learning</h2>
+
+      <div class="lang-grid reveal">
+        <div class="lang-card">
+          <div class="lang-name">Italian</div>
+          <div class="lang-level">Native</div>
+          <div class="lang-bar">
+            <div
+              class="lang-bar-fill"
+              style="width: 100%; background: #4f8ef7"
+            ></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">English</div>
+          <div class="lang-level">C1</div>
+          <div class="lang-note">Cambridge Certificate</div>
+          <div class="lang-bar">
+            <div
+              class="lang-bar-fill"
+              style="width: 85%; background: #4f8ef7"
+            ></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">Japanese</div>
+          <div class="lang-level">JLPT N5</div>
+          <div class="lang-note">Aiming for N4</div>
+          <div class="lang-bar">
+            <div
+              class="lang-bar-fill"
+              style="width: 20%; background: #a78bfa"
+            ></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">Korean</div>
+          <div class="lang-level">Beginner</div>
+          <div class="lang-bar">
+            <div
+              class="lang-bar-fill"
+              style="width: 10%; background: #a78bfa"
+            ></div>
+          </div>
+        </div>
+        <div class="lang-card">
+          <div class="lang-name">German</div>
+          <div class="lang-level">A2</div>
+          <div class="lang-bar">
+            <div
+              class="lang-bar-fill"
+              style="width: 15%; background: #a78bfa"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONFERENCES -->
+    <section>
+      <div class="section-tag reveal">Conferences &amp; Fairs</div>
+      <h2 class="reveal">Out in the world</h2>
+
+      <div class="conf-grid reveal">
+        <div class="conf-item">
+          <div class="conf-name">Startup Marathon</div>
+          <div class="conf-detail">Milan · 2025 · Pitch live presentation</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">ECR — European Congress of Radiology</div>
+          <div class="conf-detail">Vienna · 2024, 2025</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">We Make Future</div>
+          <div class="conf-detail">Bologna · 2025</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">PyCon Italy</div>
+          <div class="conf-detail">
+            Florence 2024 · Bologna 2025 · Bologna 2026
+          </div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">
+            SIRM — Italian Society of Medical Radiology
+          </div>
+          <div class="conf-detail">Bologna · 2024</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">SPS Italy — Smart Production Solutions</div>
+          <div class="conf-detail">
+            Parma · 2024 · Project live presentation
+          </div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">Codemotion</div>
+          <div class="conf-detail">Milan · 2023, 2024, 2025</div>
+        </div>
+        <div class="conf-item">
+          <div class="conf-name">ESRF User Meeting</div>
+          <div class="conf-detail">Grenoble · 2023</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section>
+      <div class="section-tag reveal">Awards</div>
+      <h2 class="reveal">Academic achievements</h2>
+
+      <div class="ach-list reveal">
+        <div class="ach-item">
+          <span class="ach-star">★</span>
+          <span
+            ><strong>Merit Scholarships</strong> — Università degli Studi di
+            Milano-Bicocca (2019–2022)</span
+          >
+        </div>
+        <div class="ach-item">
+          <span class="ach-star">★</span>
+          <span
+            ><strong>Oriana Pagliarini Award (2017)</strong> — Finalist at
+            Culture and Talent Olympics, representing Lombardy</span
+          >
+        </div>
+        <div class="ach-item">
+          <span class="ach-star">★</span>
+          <span
+            ><strong>Io e Lode — Confindustria Award</strong> (2015, 2016,
+            2018)</span
+          >
+        </div>
+        <div class="ach-item">
+          <span class="ach-star">★</span>
+          <span
+            ><strong>Merit Scholarship — Ostrów Mazowiecka Award</strong> (2013,
+            2014, 2016)</span
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section>
+      <div class="section-tag reveal">Outside work</div>
+      <h2 class="reveal">Hobbies &amp; interests</h2>
+
+      <div class="hobby-row reveal">
+        <span class="hobby-tag">🥋 Kendo — 1st Kyu</span>
+        <span class="hobby-tag">🎻 Violin · Cello · Piano</span>
+        <span class="hobby-tag">✍️ Narrative &amp; poetry writing</span>
+        <span class="hobby-tag">🔭 Science outreach for youth</span>
+        <span class="hobby-tag">🇯🇵 Japanese culture</span>
+      </div>
+    </section>
+
+    <footer>
+      <span
+        >Laura Borghesi — laura.borghesi@gmail.com — laura.borghesi@pec.cloud
+      </span>
+      <span>Terno d'Isola, BG · Italy</span>
+    </footer>
+
+    <script>
+      const obs = new IntersectionObserver(
+        entries => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 60);
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+      document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+    </script>
+  </body>
+</html>
