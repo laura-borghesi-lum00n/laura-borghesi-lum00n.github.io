@@ -695,7 +695,7 @@
         <p class="exp-desc">
           Development and maintenance of desktop, web, and cloud-based medical
           imaging applications, including advanced image visualizers for
-          external consultancy projects (GMM, EBIT).
+          external consultancy projects (e.g., GMM).
         </p>
         <ul class="exp-items">
           <li>
@@ -1097,7 +1097,7 @@
 
     <script>
       const obs = new IntersectionObserver(
-        entries => {
+        (entries) => {
           entries.forEach((e, i) => {
             if (e.isIntersecting) {
               setTimeout(() => e.target.classList.add("visible"), i * 60);
@@ -1105,9 +1105,9 @@
             }
           });
         },
-        { threshold: 0.08 }
+        { threshold: 0.08 },
       );
-      document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+      document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
     </script>
   </body>
 </html>
