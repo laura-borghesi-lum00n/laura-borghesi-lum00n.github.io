@@ -20,17 +20,17 @@
       }
 
       :root {
-        --bg: #0a0c10;
-        --surface: #111318;
-        --surface2: #181c23;
-        --border: rgba(255, 255, 255, 0.07);
-        --border2: rgba(255, 255, 255, 0.13);
-        --text: #e8eaf0;
-        --muted: #7a8097;
-        --accent: #4f8ef7;
-        --accent2: #a78bfa;
-        --accent3: #34d399;
-        --gold: #f59e0b;
+        --bg: #0a0d14;
+        --surface: #171d2d;
+        --surface2: #1c243a;
+        --border: rgba(99, 102, 241, 0.12);
+        --border2: rgba(99, 102, 241, 0.22);
+        --text: #f1f5f9;
+        --muted: #94a3b8;
+        --accent: #24bcd4;
+        --accent2: #ffffff;
+        --accent3: #60a4b8;
+        --gold: #fbbf24;
         --serif: "DM Serif Display", Georgia, serif;
         --sans: "Outfit", system-ui, sans-serif;
         --mono: "DM Mono", monospace;
@@ -39,7 +39,21 @@
       html {
         scroll-behavior: smooth;
       }
-
+      /* ── HERO AVATAR ── */
+      .hero-avatar {
+        margin-bottom: 2rem;
+        opacity: 0;
+        animation: fadeUp 0.8s 0.1s forwards; /* Inizia ad apparire un attimo prima del testo */
+        z-index: 10;
+      }
+      .hero-avatar img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid rgba(56, 189, 248, 0.4); /* Bordo azzurro coordinato */
+        box-shadow: 0 0 25px rgba(56, 189, 248, 0.25); /* Bagliore morbido stile neon */
+      }
       body {
         background: var(--bg);
         color: var(--text);
@@ -60,7 +74,7 @@
         align-items: center;
         justify-content: space-between;
         padding: 1rem 2.5rem;
-        background: rgba(10, 12, 16, 0.85);
+        background: rgba(4, 4, 4, 0.85);
         backdrop-filter: blur(12px);
         border-bottom: 0.5px solid var(--border);
       }
@@ -69,6 +83,7 @@
         font-size: 0.85rem;
         color: var(--accent);
         letter-spacing: 0.05em;
+        font-weight: 500;
       }
       .nav-links {
         display: flex;
@@ -84,7 +99,7 @@
         transition: color 0.2s;
       }
       .nav-links a:hover {
-        color: var(--text);
+        color: var(--accent);
       }
 
       /* ── HERO ── */
@@ -101,44 +116,31 @@
       .hero-grid {
         position: absolute;
         inset: 0;
+        /* 3 Onde azzurre/ciano ad alta visibilità e loop infinito */
         background-image:
-          linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
-        background-size: 60px 60px;
-        mask-image: radial-gradient(
-          ellipse 80% 60% at 50% 100%,
-          transparent 40%,
-          black 100%
-        );
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0,150 C300,50 300,250 600,150 C900,50 900,250 1200,150' fill='none' stroke='%2338bdf8' stroke-width='3.5' stroke-opacity='0.6'/%3E%3C/svg%3E"),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' preserveAspectRatio='none'%3E%3Cpath d='M0,130 C300,230 300,30 600,130 C900,230 900,30 1200,130' fill='none' stroke='%2300a8e8' stroke-width='2.5' stroke-opacity='0.4'/%3E%3C/svg%3E");
+        background-size: 150% 150%;
+        background-repeat: repeat-x;
+        mask-image: linear-gradient(to top, black 30%, transparent 95%);
+        animation: waveMove 18s ease-in-out infinite alternate;
       }
 
-      .hero-glow {
-        position: absolute;
-        width: 600px;
-        height: 600px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(79, 142, 247, 0.12) 0%,
-          transparent 70%
-        );
-        top: -100px;
-        right: -100px;
-        pointer-events: none;
-      }
-      .hero-glow2 {
-        position: absolute;
-        width: 400px;
-        height: 400px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(167, 139, 250, 0.08) 0%,
-          transparent 70%
-        );
-        bottom: 100px;
-        left: 10%;
-        pointer-events: none;
+      @keyframes waveMove {
+        0% {
+          /* Posizione di partenza dei 3 strati di onde */
+          background-position:
+            0% 80%,
+            10% 85%,
+            -5% 75%;
+        }
+        100% {
+          /* Spostamento accennato e asincrono per un'oscillazione naturale e rilassante */
+          background-position:
+            40% 80%,
+            -30% 85%,
+            25% 75%;
+        }
       }
 
       .hero-label {
@@ -150,6 +152,7 @@
         margin-bottom: 1.5rem;
         opacity: 0;
         animation: fadeUp 0.8s 0.2s forwards;
+        font-weight: 500;
       }
 
       h1 {
@@ -160,10 +163,16 @@
         letter-spacing: -0.02em;
         opacity: 0;
         animation: fadeUp 0.8s 0.4s forwards;
+        background: linear-gradient(to right, #ffffff, #cbd5e1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
       h1 em {
         font-style: italic;
         color: var(--accent);
+        background: var(--accent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       .hero-sub {
@@ -194,13 +203,18 @@
         font-size: 0.78rem;
         color: var(--muted);
         text-decoration: none;
+        background: rgba(28, 36, 58, 0.3);
         transition:
           border-color 0.2s,
-          color 0.2s;
+          color 0.2s,
+          background 0.2s,
+          transform 0.2s;
       }
       .contact-pill:hover {
-        border-color: var(--accent);
-        color: var(--accent);
+        border-color: var(--accent3);
+        color: var(--text);
+        background: var(--surface);
+        transform: translateY(-2px);
       }
       .contact-pill svg {
         width: 13px;
@@ -221,6 +235,18 @@
         }
       }
 
+      @keyframes waveFloat {
+        0% {
+          transform: translateY(0) scaleY(1);
+        }
+        50% {
+          transform: translateY(-10px) scaleY(1.05);
+        }
+        100% {
+          transform: translateY(0) scaleY(1);
+        }
+      }
+
       /* ── SECTIONS ── */
       section {
         padding: 5rem 2.5rem;
@@ -238,6 +264,7 @@
         display: flex;
         align-items: center;
         gap: 0.75rem;
+        font-weight: 500;
       }
       .section-tag::after {
         content: "";
@@ -254,6 +281,9 @@
         font-weight: 400;
         line-height: 1.1;
         margin-bottom: 3rem;
+        background: linear-gradient(to right, #ffffff, #94a3b8);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
 
       /* ── EXPERIENCE ── */
@@ -261,8 +291,20 @@
         border: 0.5px solid var(--border);
         border-radius: 16px;
         padding: 2rem 2.5rem;
-        background: var(--surface);
+        background: linear-gradient(
+          145deg,
+          var(--surface),
+          rgba(18, 24, 41, 0.6)
+        );
         margin-bottom: 1.5rem;
+        box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.3);
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .exp-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(56, 189, 248, 0.3);
       }
       .exp-header {
         display: flex;
@@ -279,6 +321,7 @@
         letter-spacing: 0.1em;
         text-transform: uppercase;
         margin-bottom: 0.25rem;
+        font-weight: 500;
       }
       .exp-role {
         font-family: var(--serif);
@@ -289,10 +332,10 @@
       .exp-date {
         font-family: var(--mono);
         font-size: 0.72rem;
-        color: var(--muted);
+        color: var(--text);
         white-space: nowrap;
         background: var(--surface2);
-        border: 0.5px solid var(--border);
+        border: 0.5px solid var(--border2);
         padding: 0.3rem 0.75rem;
         border-radius: 999px;
       }
@@ -338,14 +381,22 @@
         border: 0.5px solid var(--border);
         border-radius: 14px;
         padding: 1.5rem;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .skill-block:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent3);
       }
       .skill-block-title {
         font-family: var(--mono);
         font-size: 0.72rem;
-        color: var(--accent2);
+        color: var(--accent3);
         letter-spacing: 0.12em;
         text-transform: uppercase;
         margin-bottom: 1rem;
+        font-weight: 500;
       }
       .tag-cloud {
         display: flex;
@@ -359,18 +410,20 @@
         border-radius: 999px;
         border: 0.5px solid var(--border2);
         color: var(--muted);
+        background: rgba(28, 36, 58, 0.2);
       }
       .tag.hi {
-        color: var(--text);
-        border-color: rgba(79, 142, 247, 0.35);
-        background: rgba(79, 142, 247, 0.06);
+        color: #eff6ff;
+        border-color: rgba(56, 189, 248, 0.4);
+        background: rgba(56, 189, 248, 0.12);
       }
       .tag.med {
-        color: var(--muted);
+        color: var(--text);
+        border-color: var(--border2);
       }
       .tag.lo {
         color: var(--muted);
-        opacity: 0.6;
+        opacity: 0.5;
       }
 
       /* ── DOMAIN ── */
@@ -384,6 +437,13 @@
         border: 0.5px solid var(--border);
         border-radius: 14px;
         padding: 1.5rem 1.75rem;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .domain-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent3);
       }
       .domain-icon {
         width: 36px;
@@ -418,9 +478,10 @@
       .edu-year {
         font-family: var(--mono);
         font-size: 0.75rem;
-        color: var(--muted);
+        color: var(--accent);
         min-width: 80px;
         padding-top: 0.2rem;
+        font-weight: 500;
       }
       .edu-content h3 {
         font-family: var(--serif);
@@ -431,7 +492,7 @@
       }
       .edu-content .edu-uni {
         font-size: 0.82rem;
-        color: var(--accent);
+        color: var(--accent3);
         margin-bottom: 0.5rem;
         font-family: var(--mono);
       }
@@ -471,8 +532,8 @@
         margin-top: 0.2rem;
       }
       .lang-bar {
-        height: 2px;
-        background: var(--border2);
+        height: 4px;
+        background: rgba(255, 255, 255, 0.05);
         border-radius: 2px;
         margin-top: 0.75rem;
         overflow: hidden;
@@ -496,6 +557,10 @@
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
+        transition: border-color 0.2s;
+      }
+      .conf-item:hover {
+        border-color: var(--border2);
       }
       .conf-name {
         font-size: 0.88rem;
@@ -547,10 +612,18 @@
         border: 0.5px solid var(--border2);
         border-radius: 999px;
         font-size: 0.88rem;
-        color: var(--muted);
+        color: var(--text);
+        background: rgba(28, 36, 58, 0.2);
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+      }
+      .hobby-tag:hover {
+        border-color: var(--accent3);
+        background: rgba(45, 212, 191, 0.05);
       }
 
       /* ── FOOTER ── */
@@ -620,11 +693,11 @@
       </ul>
     </nav>
 
-    <!-- HERO -->
     <section id="hero" style="max-width: 100%; padding-top: 0">
       <div class="hero-grid"></div>
       <div class="hero-glow"></div>
       <div class="hero-glow2"></div>
+
       <div class="hero-label">Physicist · Developer · Maker</div>
       <h1>Laura<br /><em>Borghesi</em></h1>
       <p class="hero-sub">
@@ -679,7 +752,6 @@
       </div>
     </section>
 
-    <!-- EXPERIENCE -->
     <section id="experience">
       <div class="section-tag reveal">Experience</div>
       <h2 class="reveal">What I build</h2>
@@ -710,8 +782,11 @@
           </li>
           <li>
             <strong>Image Optimisation</strong> — genetic-algorithm pipelines
-            (PyGAD) for anatomical/weight-based presets: automatic denoising,
-            sharpening, contrast and crop.
+            (PyGAD, OpenCV) that learn anatomical and weight-based presets for
+            automatic denoising, sharpening, contrast enhancement, and artefact
+            reduction on radiographic acquisitions. Optimisation runs directly
+            on DICOM pixel data, producing clinically validated output across a
+            multi-image dataset.
           </li>
           <li>
             <strong>Digital Twin Platform</strong> — log analysis, technical
@@ -735,7 +810,6 @@
       </div>
     </section>
 
-    <!-- SKILLS -->
     <section id="skills">
       <div class="section-tag reveal">Technical Skills</div>
       <h2 class="reveal">Tools &amp; technologies</h2>
@@ -811,16 +885,12 @@
       </div>
     </section>
 
-    <!-- DOMAIN KNOWLEDGE -->
     <section id="domain">
       <div class="section-tag reveal">Domain Knowledge</div>
       <h2 class="reveal">Areas of expertise</h2>
 
       <div class="domain-grid">
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(79, 142, 247, 0.1)">
-            🫁
-          </div>
           <h3>Medical Imaging &amp; DICOM</h3>
           <p>
             All SOP classes (CR, CT, MR, US, OCT, DSA, PET, MG), GSPS,
@@ -829,9 +899,6 @@
           </p>
         </div>
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(52, 211, 153, 0.1)">
-            ⚗️
-          </div>
           <h3>Image Processing &amp; Optimisation</h3>
           <p>
             Reconstruction, phase retrieval, artifact correction. Filtering,
@@ -840,9 +907,6 @@
           </p>
         </div>
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(245, 158, 11, 0.1)">
-            📊
-          </div>
           <h3>Statistics &amp; Data Analysis</h3>
           <p>
             Monte Carlo simulations, data unfolding, parameter estimation,
@@ -851,9 +915,6 @@
           </p>
         </div>
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(167, 139, 250, 0.1)">
-            🧠
-          </div>
           <h3>Machine Learning</h3>
           <p>
             Classification, PCA, neural networks, deep learning, random forests
@@ -861,9 +922,6 @@
           </p>
         </div>
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(251, 113, 133, 0.1)">
-            ⚛️
-          </div>
           <h3>Quantum &amp; Particle Physics</h3>
           <p>
             Quantum computing (Cirq, Qiskit), EPR spectroscopy, quantum wells
@@ -871,9 +929,6 @@
           </p>
         </div>
         <div class="domain-card reveal">
-          <div class="domain-icon" style="background: rgba(16, 185, 129, 0.1)">
-            🛡️
-          </div>
           <h3>Radioprotection</h3>
           <p>
             Sample preparation to reduce motion artifacts, microbeam radiation
@@ -941,7 +996,7 @@
           <div class="lang-bar">
             <div
               class="lang-bar-fill"
-              style="width: 100%; background: #4f8ef7"
+              style="width: 100%; background: #38bdf8"
             ></div>
           </div>
         </div>
@@ -952,7 +1007,7 @@
           <div class="lang-bar">
             <div
               class="lang-bar-fill"
-              style="width: 85%; background: #4f8ef7"
+              style="width: 85%; background: #38bdf8"
             ></div>
           </div>
         </div>
@@ -963,7 +1018,7 @@
           <div class="lang-bar">
             <div
               class="lang-bar-fill"
-              style="width: 20%; background: #a78bfa"
+              style="width: 30%; background: #00fff3"
             ></div>
           </div>
         </div>
@@ -973,7 +1028,7 @@
           <div class="lang-bar">
             <div
               class="lang-bar-fill"
-              style="width: 10%; background: #a78bfa"
+              style="width: 10%; background: #00fff3"
             ></div>
           </div>
         </div>
@@ -983,7 +1038,7 @@
           <div class="lang-bar">
             <div
               class="lang-bar-fill"
-              style="width: 15%; background: #a78bfa"
+              style="width: 15%; background: #00fff3"
             ></div>
           </div>
         </div>
@@ -1080,11 +1135,11 @@
       <h2 class="reveal">Hobbies &amp; interests</h2>
 
       <div class="hobby-row reveal">
-        <span class="hobby-tag">🥋 Kendo — 1st Kyu</span>
-        <span class="hobby-tag">🎻 Violin · Cello · Piano</span>
-        <span class="hobby-tag">✍️ Narrative &amp; poetry writing</span>
-        <span class="hobby-tag">🔭 Science outreach for youth</span>
-        <span class="hobby-tag">🇯🇵 Japanese culture</span>
+        <span class="hobby-tag"> Kendo — 1st Kyu - Japanese Translator</span>
+        <span class="hobby-tag"> Violin · Cello · Piano</span>
+        <span class="hobby-tag"> Narrative &amp; poetry writing</span>
+        <span class="hobby-tag"> Science outreach for youth</span>
+        <span class="hobby-tag">🇯 Japanese culture</span>
       </div>
     </section>
 
